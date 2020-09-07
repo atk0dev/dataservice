@@ -133,7 +133,7 @@ namespace CourseLibrary.API
             services.AddDbContext<CourseLibraryContext>(options =>
             {
                 options.UseSqlServer(
-                    @"Server=(localdb)\mssqllocaldb;Database=CourseLibraryDB;Trusted_Connection=True;");
+                    Configuration["ConnectionStrings:CourseLibraryDBConnectionString"]);
             });
         }
 

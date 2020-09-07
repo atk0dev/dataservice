@@ -10,16 +10,20 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace Marvin.IDP
 {
     public class Startup
     {
         public IWebHostEnvironment Environment { get; }
+        public IConfiguration Configuration { get; }
 
-        public Startup(IWebHostEnvironment environment)
+        public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
             Environment = environment;
+            Configuration = configuration;
+
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -29,7 +33,9 @@ namespace Marvin.IDP
 
             services.AddDbContext<IdentityDbContext>(options =>
             {
-                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=MarvinIdentityDB;Trusted_Connection=True;");
+                options.UseSqlServer(
+                    Configuration["ConnectionStrings:MarvinIdentityDBConnectionString"]);
+                //options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=MarvinIdentityDB;Trusted_Connection=True;");
             });
 
             services.AddScoped<IPasswordHasher<Entities.User>, PasswordHasher<Entities.User>>();
