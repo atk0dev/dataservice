@@ -29,10 +29,13 @@ namespace CourseLibrary.API.Controllers
         {
             _courseLibraryRepository = courseLibraryRepository ??
                 throw new ArgumentNullException(nameof(courseLibraryRepository));
+
             _mapper = mapper ??
                 throw new ArgumentNullException(nameof(mapper));
+
             _propertyMappingService = propertyMappingService ??
               throw new ArgumentNullException(nameof(propertyMappingService));
+
             _propertyCheckerService = propertyCheckerService ??
               throw new ArgumentNullException(nameof(propertyCheckerService));
         }
@@ -90,6 +93,7 @@ namespace CourseLibrary.API.Controllers
 
             return Ok(linkedCollectionResource);             
         }
+
         [Produces("application/json", 
             "application/vnd.marvin.hateoas+json",
             "application/vnd.marvin.author.full+json", 
